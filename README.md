@@ -20,6 +20,8 @@ Render a square with and without motion blur.
 go get -u github.com/goxjs/example/motionblur
 ```
 
+Also try [in browser](https://dmitri.shuralyov.com/projects/MotionBlurDemo/MotionBlurDemo.html).
+
 ![motionblur screenshot](screenshots/motionblur.png)
 
 License

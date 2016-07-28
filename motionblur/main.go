@@ -84,6 +84,10 @@ func run() error {
 
 	triangleVertexPositionBuffer := gl.CreateBuffer()
 
+	// drawTriangle draws a triangle, consisting of 3 vertices, with motion blur corresponding
+	// to the provided velocity. The triangle vertices specify its final position (at t = 1.0,
+	// the end of frame), and its velocity is used to compute where the triangle is coming from
+	// (at t = 0.0, the start of frame).
 	drawTriangle := func(triangle [9]float32, velocity mgl32.Vec3) {
 		triangle0 := triangle
 		for i := 0; i < 3*3; i++ {

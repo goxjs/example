@@ -8,6 +8,7 @@ Render a basic triangle.
 
 ```bash
 go get -u github.com/goxjs/example/triangle
+GOARCH=js go get -u -d github.com/goxjs/example/triangle
 ```
 
 ![triangle screenshot](screenshots/triangle.png)
@@ -18,6 +19,7 @@ Render a square with and without motion blur.
 
 ```bash
 go get -u github.com/goxjs/example/motionblur
+GOARCH=js go get -u -d github.com/goxjs/example/motionblur
 ```
 
 Also try [in browser](https://dmitri.shuralyov.com/projects/MotionBlurDemo/MotionBlurDemo.html).

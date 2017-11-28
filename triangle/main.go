@@ -13,27 +13,12 @@ import (
 	"golang.org/x/mobile/exp/f32"
 )
 
-const (
-	vertexSource = `//#version 120 // OpenGL 2.1.
-//#version 100 // WebGL.
-
-attribute vec3 aVertexPosition;
-
-uniform mat4 uMVMatrix;
-uniform mat4 uPMatrix;
-
-void main() {
-	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+func main() {
+	err := run()
+	if err != nil {
+		log.Fatalln(err)
+	}
 }
-`
-	fragmentSource = `//#version 120 // OpenGL 2.1.
-//#version 100 // WebGL.
-
-void main() {
-	gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-}
-`
-)
 
 func run() error {
 	err := glfw.Init(gl.ContextWatcher)
@@ -129,9 +114,24 @@ func run() error {
 	return nil
 }
 
-func main() {
-	err := run()
-	if err != nil {
-		log.Fatalln(err)
-	}
+const (
+	vertexSource = `//#version 120 // OpenGL 2.1.
+//#version 100 // WebGL.
+
+attribute vec3 aVertexPosition;
+
+uniform mat4 uMVMatrix;
+uniform mat4 uPMatrix;
+
+void main() {
+	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
 }
+`
+	fragmentSource = `//#version 120 // OpenGL 2.1.
+//#version 100 // WebGL.
+
+void main() {
+	gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+}
+`
+)

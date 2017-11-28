@@ -13,6 +13,13 @@ import (
 	"golang.org/x/mobile/exp/f32"
 )
 
+func main() {
+	err := run()
+	if err != nil {
+		log.Fatalln(err)
+	}
+}
+
 func run() error {
 	err := glfw.Init(gl.ContextWatcher)
 	if err != nil {
@@ -190,11 +197,4 @@ func run() error {
 	}
 
 	return nil
-}
-
-func main() {
-	err := run()
-	if err != nil {
-		log.Fatalln(err)
-	}
 }

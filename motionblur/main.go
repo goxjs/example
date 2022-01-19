@@ -95,29 +95,29 @@ func run() error {
 	// to the provided velocity. The triangle vertices specify its final position (at t = 1.0,
 	// the end of frame), and its velocity is used to compute where the triangle is coming from
 	// (at t = 0.0, the start of frame).
-	drawTriangle := func(triangle [9]float32, velocity mgl32.Vec3) {
-		triangle0 := triangle
-		for i := 0; i < 3*3; i++ {
-			triangle0[i] -= velocity[i%3]
+	drawTriangle := func(triangle [3]mgl32.Vec3, velocity mgl32.Vec3) {
+		var triangle0 [3]mgl32.Vec3
+		for i := 0; i < len(triangle); i++ {
+			triangle0[i] = triangle[i].Sub(velocity)
 		}
 		triangle1 := triangle
 
-		gl.Uniform3f(tri0v0, triangle0[0], triangle0[1], triangle0[2])
-		gl.Uniform3f(tri0v1, triangle0[3], triangle0[4], triangle0[5])
-		gl.Uniform3f(tri0v2, triangle0[6], triangle0[7], triangle0[8])
-		gl.Uniform3f(tri1v0, triangle1[0], triangle1[1], triangle1[2])
-		gl.Uniform3f(tri1v1, triangle1[3], triangle1[4], triangle1[5])
-		gl.Uniform3f(tri1v2, triangle1[6], triangle1[7], triangle1[8])
+		gl.Uniform3f(tri0v0, triangle0[0].X(), triangle0[0].Y(), triangle0[0].Z())
+		gl.Uniform3f(tri0v1, triangle0[1].X(), triangle0[1].Y(), triangle0[1].Z())
+		gl.Uniform3f(tri0v2, triangle0[2].X(), triangle0[2].Y(), triangle0[2].Z())
+		gl.Uniform3f(tri1v0, triangle1[0].X(), triangle1[0].Y(), triangle1[0].Z())
+		gl.Uniform3f(tri1v1, triangle1[1].X(), triangle1[1].Y(), triangle1[1].Z())
+		gl.Uniform3f(tri1v2, triangle1[2].X(), triangle1[2].Y(), triangle1[2].Z())
 
 		{
 			gl.BindBuffer(gl.ARRAY_BUFFER, triangleVertexPositionBuffer)
 			vertices := f32.Bytes(binary.LittleEndian,
-				triangle0[0], triangle0[1], triangle0[2],
-				triangle0[3], triangle0[4], triangle0[5],
-				triangle0[6], triangle0[7], triangle0[8],
-				triangle1[0], triangle1[1], triangle1[2],
-				triangle1[6], triangle1[7], triangle1[8],
-				triangle1[3], triangle1[4], triangle1[5],
+				triangle0[0].X(), triangle0[0].Y(), triangle0[0].Z(),
+				triangle0[1].X(), triangle0[1].Y(), triangle0[1].Z(),
+				triangle0[2].X(), triangle0[2].Y(), triangle0[2].Z(),
+				triangle1[0].X(), triangle1[0].Y(), triangle1[0].Z(),
+				triangle1[2].X(), triangle1[2].Y(), triangle1[2].Z(),
+				triangle1[1].X(), triangle1[1].Y(), triangle1[1].Z(),
 			)
 			gl.BufferData(gl.ARRAY_BUFFER, vertices, gl.DYNAMIC_DRAW)
 			itemSize := 3
@@ -130,14 +130,14 @@ func run() error {
 		{
 			gl.BindBuffer(gl.ARRAY_BUFFER, triangleVertexPositionBuffer)
 			vertices := f32.Bytes(binary.LittleEndian,
-				triangle0[0], triangle0[1], triangle0[2],
-				triangle1[0], triangle1[1], triangle1[2],
-				triangle0[3], triangle0[4], triangle0[5],
-				triangle1[3], triangle1[4], triangle1[5],
-				triangle0[6], triangle0[7], triangle0[8],
-				triangle1[6], triangle1[7], triangle1[8],
-				triangle0[0], triangle0[1], triangle0[2],
-				triangle1[0], triangle1[1], triangle1[2],
+				triangle0[0].X(), triangle0[0].Y(), triangle0[0].Z(),
+				triangle1[0].X(), triangle1[0].Y(), triangle1[0].Z(),
+				triangle0[1].X(), triangle0[1].Y(), triangle0[1].Z(),
+				triangle1[1].X(), triangle1[1].Y(), triangle1[1].Z(),
+				triangle0[2].X(), triangle0[2].Y(), triangle0[2].Z(),
+				triangle1[2].X(), triangle1[2].Y(), triangle1[2].Z(),
+				triangle0[0].X(), triangle0[0].Y(), triangle0[0].Z(),
+				triangle1[0].X(), triangle1[0].Y(), triangle1[0].Z(),
 			)
 			gl.BufferData(gl.ARRAY_BUFFER, vertices, gl.DYNAMIC_DRAW)
 			itemSize := 3
@@ -157,14 +157,14 @@ func run() error {
 
 		pMatrix := mgl32.Ortho2D(0, float32(windowSize[0]), float32(windowSize[1]), 0)
 
-		triangle0 := [9]float32{
-			-50, -50, 0,
-			50, -50, 0,
-			-50, 50, 0}
-		triangle1 := [9]float32{
-			50, 50, 0,
-			-50, 50, 0,
-			50, -50, 0}
+		triangle0 := [3]mgl32.Vec3{
+			{-50, -50, 0},
+			{50, -50, 0},
+			{-50, 50, 0}}
+		triangle1 := [3]mgl32.Vec3{
+			{50, 50, 0},
+			{-50, 50, 0},
+			{50, -50, 0}}
 
 		// Square with motion blur on the left.
 		{

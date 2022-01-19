@@ -1,7 +1,5 @@
 package main
 
-// TODO: Clean these up.
-
 const vertexSource = `//#version 120 // OpenGL 2.1.
 //#version 100 // WebGL.
 
@@ -207,33 +205,10 @@ bool IntrLine3Triangle3_Find(Line3 line, Triangle3 triangle, float tmax, vec3 ve
 }
 
 void main() {
-	// Shade all the fragments behind the z-buffer
-	/*gl_FragColor = vec4(sin(verpos.x*50.0), sin(verpos.y*50.0), 1.0 + 0.0*sin(verpos.z*5.0), 1);
-	return;*/
-
-	/*Line3 line; line.Origin = vec3(verpos.x, verpos.y, -1); line.Direction = vec3(0, 0, 1);
-	Triangle3 triangle; triangle.V[0] = tri0v0; triangle.V[1] = tri0v1; triangle.V[2] = tri0v2;
-	float triBary[3];
-	if (IntrLine3Triangle3_Find(line, triangle, triBary))
-	{
-		gl_FragColor = vec4(triBary[0], triBary[1], triBary[2], 1);
-	}
-	else discard;
-	return;*/
-
 	Line3 line; line.Origin = vec3(verpos.x, verpos.y, -1); line.Direction = vec3(0, 0, 1);
 	Triangle3 triangle0; triangle0.V[0] = tri0v0; triangle0.V[1] = tri0v1; triangle0.V[2] = tri0v2;
 	Triangle3 triangle1; triangle1.V[0] = tri1v0; triangle1.V[1] = tri1v1; triangle1.V[2] = tri1v2;
 	float ContactTime;
-
-	/*gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
-	if (IntrLine3Triangle3_Find(line, triangle0, 1.0, vec3(0.0), vec3(triangle1.V[0] - triangle0.V[0]), ContactTime))
-	{
-		//gl_FragColor = vec4(1.0 - ContactTime, 1.0 - ContactTime, 1.0 - ContactTime, 1.0);
-		gl_FragColor.g = 1.0;
-	}
-	else gl_FragColor.r = 1.0;
-	return;*/
 
 	bool col = IntrLine3Triangle3_Find(line, triangle0, 1.0, vec3(0.0), vec3(triangle1.V[0] - triangle0.V[0]), ContactTime);
 
@@ -245,19 +220,12 @@ void main() {
 		{
 			float t1 = ContactTime;
 
-			//gl_FragColor = vec4(1.0 - t0 - t1, 1.0 - t0 - t1, 1.0 - t0 - t1, 1.0);
 			gl_FragColor = vec4(0.8, 0.3, 0.01, 1.0 - t0 - t1);
 		}
 		else
-			//gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);
 			discard;
 	}
 	else
-		//gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 		discard;
 }
-
-/*void main() {
-	gl_FragColor = vec4(0.8, 0.3, 0.01, 1.0);
-}*/
 `

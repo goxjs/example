@@ -1,4 +1,7 @@
-# goxjs Examples [![Build Status](https://travis-ci.org/goxjs/example.svg?branch=master)](https://travis-ci.org/goxjs/example) [![GoDoc](https://godoc.org/github.com/goxjs/example?status.svg)](https://godoc.org/github.com/goxjs/example)
+goxjs Examples
+==============
+
+[![Go Reference](https://pkg.go.dev/badge/github.com/goxjs/example.svg)](https://pkg.go.dev/github.com/goxjs/example)
 
 Example projects for goxjs packages.
 
@@ -6,27 +9,25 @@ Example projects for goxjs packages.
 
 Render a basic triangle.
 
-```bash
-go get -u github.com/goxjs/example/triangle
-GOARCH=js go get -u -d github.com/goxjs/example/triangle
+```sh
+go run github.com/goxjs/example/triangle@latest
 ```
 
-![triangle screenshot](screenshots/triangle.png)
+![triangle screenshot](Screenshot1.png)
 
 ## motionblur
 
 Render a square with and without motion blur.
 
-```bash
-go get -u github.com/goxjs/example/motionblur
-GOARCH=js go get -u -d github.com/goxjs/example/motionblur
+```sh
+go run github.com/goxjs/example/motionblur@latest
 ```
 
 Also try [in browser](https://dmitri.shuralyov.com/projects/MotionBlurDemo/MotionBlurDemo.html).
 
-![motionblur screenshot](screenshots/motionblur.png)
+![motionblur screenshot](Screenshot2.png)
 
 License
 -------
 
--	[MIT License](https://opensource.org/licenses/mit-license.php)
+-	[MIT License](LICENSE)
